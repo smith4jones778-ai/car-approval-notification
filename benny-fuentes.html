@@ -255,6 +255,36 @@
       header { padding: 0.9rem 1rem; }
       header nav { margin-top: 0.4rem; }
     }
+  .gallery-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.gallery-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-container {
+    padding-bottom: 75%; /* adjust aspect ratio for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-container {
+    padding-bottom: 100%; /* adjust aspect ratio for mobile screens */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -276,10 +306,10 @@
 <p>Thank you for choosing Carvanna. Your application has been successfully received and processed.</p>
 </section>
 <!-- Clean order card with bottom-right badge -->
-<section class="order-card" aria-label="Order Summary Card"><img class="car-img" src="lexus.jpg" alt="2017 Volvo S90 T6 Momentum - exterior front three-quarter" />
+<section class="order-card" aria-label="Order Summary Card"><img class="car-img" src="lexus_rx_1.webp" alt="2017 Volvo S90 T6 Momentum - exterior front three-quarter" />
 <div class="label-badge"><img class="badge-logo" src="carvanna.png" alt="Carvanna.com" />
-<div class="badge-down">$225 Down Payment</div>
-<div class="badge-down">$875 Shippment</div>
+<div class="badge-down">$800 Down Payment</div>
+<div class="badge-down">$500 Shippment</div>
 <div class="badge-name">Lexus 2023-24</div>
 </div>
 </section>
@@ -296,8 +326,73 @@
 <div class="info-item"><strong>Email:</strong> Elfun4172@yahoo.com</div>
 </div>
 </div>
+ 
+  <div class="card">
+  <h2>Vehicle Information 🚗</h2>
+  <p><strong>Make:</strong> Lexus</p>
+  <p><strong>Model:</strong> RX 450h+ (plug-in hybrid)</p>
+  <p><strong>Year:</strong> 2023</p>
+  <p><strong>Exterior Color:</strong> White (Icelandic White Pearl)</p>
+  <p><strong>Interior Color:</strong> Black (Ebony)</p>
+  <p><strong>Engine:</strong> 2.5L 4-cylinder + electric motor (367 horsepower)</p>
+  <p><strong>Transmission:</strong> Automatic (e-CVT)</p>
+  <p><strong>Mileage:</strong> 12,500 miles</p>
+  <p><strong>Drivetrain:</strong> All-Wheel Drive (AWD)</p>
+  <p><strong>VIN:</strong> JTJ1W5EV2P5123456</p>
+  <p><strong>Stock Number:</strong> LX2023-001</p>
+</div>
+
 <div class="card">
-<h2>Pricing Details</h2>
+  <h2>Fuel Economy ⛽</h2>
+  <p><strong>Fuel Tank Size:</strong> 14.5 gal (approx.)</p>
+  <p><strong>Combined Gas Mileage:</strong> Up to 42 MPG (hybrid model)</p>
+  <p><strong>City Gas Mileage:</strong> Up to 40 MPG (hybrid model)</p>
+  <p><strong>Highway Gas Mileage:</strong> Up to 45 MPG (hybrid model)</p>
+  <p><strong>Fuel Type:</strong> Gasoline (hybrid)</p>
+</div>
+
+<div class="card">
+  <h2>Safety Features 🛡️</h2>
+  <ul>
+    <li>ABS Brakes</li>
+    <li>Adaptive Cruise Control</li>
+    <li>Backup Camera</li>
+    <li>Blind Spot Monitoring</li>
+    <li>Lane Departure Warning</li>
+    <li>Front and Rear Parking Sensors</li>
+    <li>Driver & Passenger Airbags</li>
+    <li>Forward Collision Warning</li>
+    <li>Surround View Cameras</li>
+    <li>Lexus Safety System+ 3.0</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Measurements 📏</h2>
+  <p><strong>Doors:</strong> 4 doors</p>
+  <p><strong>Front Legroom:</strong> 41.4 in</p>
+  <p><strong>Back Legroom:</strong> 36.5 in</p>
+  <p><strong>Cargo Volume:</strong> 46.9 cu ft (with rear seats folded)</p>
+</div>
+
+<div class="card">
+  <h2>Pricing Details</h2>
+  <table>
+    <tr><th>Item</th><th>Amount</th></tr>
+    <tr><td>Vehicle Price</td><td>$76,260 (450h+ Luxury trim)</td></tr>
+    <tr><td>Down Payment</td><td>$800</td></tr>
+    <tr><td>Delivery Fee</td><td>$500</td></tr>
+    <tr><td>Initial Payment</td><td>$1,300</td></tr>
+    <tr><td>Monthly Installment</td><td>$2,000</td></tr>
+    <tr><td>Number of Installments</td><td>37 months</td></tr>
+    <tr><th>Total Amount Due</th><th>$76,260</th></tr>
+  </table>
+</div>
+
+
+  
+<div class="card">
+<h2>Due for payment</h2>
 <table>
 <tbody>
 <tr>
@@ -306,22 +401,48 @@
 </tr>
 <tr>
 <td>Down Payment</td>
-<td>$225 - Pending</td>
+<td>$800 - Pending</td>
 </tr>
 <tr>
 <td>Shipment Fee</td>
-<td>$875 - Pending</td>
+<td>$500 - Pending</td>
 </tr>
 <tr>
 <th>Total</th>
-<th>$1100</th>
+<th>$1300</th>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="card" style="text-align: center;">
-<h2>Check Vehicle Details and Gallery</h2>
-<a class="track-btn" href="thttps://www.carvana.com/vehicle/4065934?refSource=srp">🚚 More about your Lexus</a></div>
+
+  
+<div class="card">
+  <h2>Car Image Gallery 📸</h2>
+  <div class="gallery-container">
+    <img src="lexus_rx_1.jpeg" alt="" id="slide">
+  </div>
+  <script>
+    let images = [
+      "lexus_rx_1.jpeg",
+      "lexus_rx_2.jpeg",
+      "lexus_rx_3.jpeg",
+      "lexus_rx_4.jpeg",
+      "lexus_rx_5.jpeg",
+      "lexus_rx_6.jpeg",
+      "lexus_rx_7.jpeg",
+      "lexus_rx_8.jpeg",
+      "lexus_rx_9.jpeg"
+    ];
+    let i = 0;
+    setInterval(() => {
+      document.getElementById("slide").src = images[i];
+      i = (i + 1) % images.length;
+    }, 3000);
+  </script>
+</div>
+
+
+  
 <div class="card">
 <h2>Delivery Details</h2>
 <p><strong>Shipment Date:</strong> Awaiting payment</p>
