@@ -1,17 +1,18 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin - Manage Users</title>
-  <script src="https:                                                              
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https:                                                                   
-  <style>
-    body {font-family: Arial, sans-serif;background:                        
-    .container {max-width: 500px;margin: auto;background: white;padding: 20px;border-radius: 12px;box-shadow: 0 0 15px rgba(0,0,0,0.1);}
-    input {width: 100%;margin: 10px 0;padding: 10px; border-radius: 6px;border: 1px solid       
-    button {width: 100%;background-color:                                                                                     
-    button:hover {background-color:          
-    h2 {text-align: center;}
+<title>Admin - Create User</title>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<style>
+    body { font-family: Arial, sans-serif; background:                          
+    .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+    input { width: 100%; margin: 10px 0; padding: 10px; border-radius: 6px; border: 1px solid        
+    button { width: 100%; background-color:                                                                                           
+    button:hover { background-color:           
+    h2 { text-align: center; }
   </style>
 </head>
 <body>
@@ -26,7 +27,7 @@
     <input type="text" id="business" placeholder="Business Name" />
     <input type="date" id="dob" placeholder="Date of Birth" />
     <input type="hidden" id="uid" />
-    <button id="submit-btn" onclick="submitForm()">Create User</button>
+    <button id="submit-btn" onclick="createUser()">Create User</button>
     <button id="update-btn" onclick="updateUser()" style="display: none;">Update User</button>
   </div>
 
