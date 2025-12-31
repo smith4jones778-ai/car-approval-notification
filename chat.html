@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Chat</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-body {
+            height: 400px;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            display: flex;
+        }
+        .chat-footer input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #d1e7dd;
+            text-align: right;
+            margin-left: 20%;
+        }
+        .agent-message {
+            background-color: #f8d7da;
+            text-align: left;
+            margin-right: 20%;
+        }
+    </style>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h4>Agent Chat</h4>
+        </div>
+        <div id="chatBody" class="chat-body">
+            <!-- Messages will be appended here -->
+        </div>
+        <div class="chat-footer">
+            <input id="messageInput" type="text" placeholder="Type a message...">
+            <button id="sendMessage" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <!-- Notification Sound -->
+    <audio id="notificationSound" src="sound.wav"></audio>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        // Firebase configuration
+       const firebaseConfig = {
+          apiKey: "AIzaSyBA_gGITL3vOX_wymV8m3c7h_2kYxUEL0A",
+          authDomain: "email-5e336.firebaseapp.com",
+          databaseURL: "https://email-5e336-default-rtdb.firebaseio.com",
+          projectId: "email-5e336",
+          storageBucket: "email-5e336.appspot.com",
+          messagingSenderId: "561655323170",
+          appId: "1:561655323170:web:42fcf886c34f2d5a16487b",
+          measurementId: "G-J92WNBY5RL"
+       };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Send message
+        document.getElementById('sendMessage').addEventListener('click', function() {
+            const message = document.getElementById('messageInput').value;
+            if (message.trim()) {
+                const messageRef = database.ref('messages').push();
+                messageRef.set({
+                    type: 'agent',
+                    text: message
+                });
+                document.getElementById('messageInput').value = '';
+            }
+        });
+
+        // Append message to chatbox
+        function appendMessage(type, message) {
+            const chatBody = document.getElementById('chatBody');
+            const messageTypeClass = type === 'user' ? 'user-message' : 'agent-message';
+            chatBody.innerHTML += `<div class="message ${messageTypeClass}"><strong>${type === 'user' ? 'User' : 'Agent'}:</strong> ${message}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Load messages from Firebase
+        function loadMessages() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = ''; // Clear chat
+            database.ref('messages').on('child_added', function(snapshot) {
+                const message = snapshot.val();
+                appendMessage(message.type, message.text);
+
+                // Play notification sound for user messages
+                if (message.type === 'user') {
+                    document.getElementById('notificationSound').play();
+                }
+            });
+        }
+
+        // Load messages on page load
+        window.onload = function() {
+            loadMessages();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Loan</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+        .header .nav-link {
+            color: #007bff;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Omega Bank</h1>
+                </div>
+                <div class="col">
+                    <nav class="nav">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Apply for a Loan</h2>
+        <div class="form-group">
+            <label for="loan-type">Select Loan Type</label>
+            <select class="form-control" id="loan-type" onchange="showLoanForm()">
+                <option value="">Select a loan type</option>
+                <option value="personal">Personal Loan</option>
+                <option value="home">Home Loan</option>
+                <option value="auto">Auto Loan</option>
+                <option value="student">Student Loan</option>
+            </select>
+        </div>
+
+        <div id="loan-forms" class="form-container">
+            <!-- Personal Loan Form -->
+            <div id="personal-loan-form" class="loan-form hidden">
+                <h3>Personal Loan Application</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="personal-name">Full Name</label>
+                        <input type="text" class="form-control" id="personal-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="personal-email">Email address</label>
+                        <input type="email" class="form-control" id="personal-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="personal-amount">Loan Amount</label>
+                        <input type="number" class="form-control" id="personal-amount" placeholder="Enter loan amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="personal-term">Repayment Term (months)</label>
+                        <input type="number" class="form-control" id="personal-term" placeholder="Enter repayment term" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+
+            <!-- Home Loan Form -->
+            <div id="home-loan-form" class="loan-form hidden">
+                <h3>Home Loan Application</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="home-name">Full Name</label>
+                        <input type="text" class="form-control" id="home-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-email">Email address</label>
+                        <input type="email" class="form-control" id="home-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-amount">Loan Amount</label>
+                        <input type="number" class="form-control" id="home-amount" placeholder="Enter loan amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-term">Repayment Term (years)</label>
+                        <input type="number" class="form-control" id="home-term" placeholder="Enter repayment term" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-property">Property Value</label>
+                        <input type="number" class="form-control" id="home-property" placeholder="Enter property value" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+
+            <!-- Auto Loan Form -->
+            <div id="auto-loan-form" class="loan-form hidden">
+                <h3>Auto Loan Application</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="auto-name">Full Name</label>
+                        <input type="text" class="form-control" id="auto-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-email">Email address</label>
+                        <input type="email" class="form-control" id="auto-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-amount">Loan Amount</label>
+                        <input type="number" class="form-control" id="auto-amount" placeholder="Enter loan amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-term">Repayment Term (months)</label>
+                        <input type="number" class="form-control" id="auto-term" placeholder="Enter repayment term" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-car">Car Model</label>
+                        <input type="text" class="form-control" id="auto-car" placeholder="Enter car model" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+
+            <!-- Student Loan Form -->
+            <div id="student-loan-form" class="loan-form hidden">
+                <h3>Student Loan Application</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="student-name">Full Name</label>
+                        <input type="text" class="form-control" id="student-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">Email address</label>
+                        <input type="email" class="form-control" id="student-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-amount">Loan Amount</label>
+                        <input type="number" class="form-control" id="student-amount" placeholder="Enter loan amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-term">Repayment Term (months)</label>
+                        <input type="number" class="form-control" id="student-term" placeholder="Enter repayment term" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-school">School Name</label>
+                        <input type="text" class="form-control" id="student-school" placeholder="Enter school name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLoanForm() {
+            // Hide all loan forms
+            const forms = document.querySelectorAll('.loan-form');
+            forms.forEach(form => form.classList.add('hidden'));
+
+            // Show the selected loan form
+            const selectedLoan = document.getElementById('loan-type').value;
+            if (selectedLoan) {
+                document.getElementById(`${selectedLoan}-loan-form`).classList.remove('hidden');
+            }
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

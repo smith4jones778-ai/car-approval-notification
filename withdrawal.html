@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+        .header .nav-link {
+            color: #007bff;
+        }
+        /* Fullscreen Overlay Styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+        }
+        .overlay-content {
+            margin: 20px;
+        }
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Banking Dashboard</h1>
+                </div>
+                <div class="col">
+                    <nav class="nav">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        <a class="nav-link" href="deposit.html">Deposit</a>
+                        <a class="nav-link" href="transaction.html">Transaction History</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Withdraw Funds</h2>
+        <form id="withdraw-form">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" placeholder="Enter amount to withdraw" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Withdraw</button>
+        </form>
+    </div>
+
+    <!-- Fullscreen Overlay -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <div class="spinner"></div>
+            <p id="overlay-message">Withdrawal is pending due to loan eligibility processing. Once your loan is completed, you can withdraw your funds.</p>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration and Initialization -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script>
+       const firebaseConfig = {
+          apiKey: "AIzaSyBA_gGITL3vOX_wymV8m3c7h_2kYxUEL0A",
+          authDomain: "email-5e336.firebaseapp.com",
+          projectId: "email-5e336",
+          storageBucket: "email-5e336.appspot.com",
+          messagingSenderId: "561655323170",
+          appId: "1:561655323170:web:42fcf886c34f2d5a16487b",
+          measurementId: "G-J92WNBY5RL"
+       };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+        document.getElementById('withdraw-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show overlay
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'flex';
+
+            // Simulate a delay for loan processing
+            setTimeout(() => {
+                // Hide overlay and redirect to dashboard after 5 minutes (300000ms)
+                overlay.style.display = 'none';
+                window.location.href = 'dashboard.html'; // Redirect to dashboard
+            }, 300000); // 5 minutes
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

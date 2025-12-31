@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+        .header .nav-link {
+            color: #007bff;
+        }
+        table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Banking Dashboard</h1>
+                </div>
+                <div class="col">
+                    <nav class="nav">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        <a class="nav-link" href="deposit.html">Deposit</a>
+                        <a class="nav-link" href="withdrawal.html">Withdraw</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Transaction History</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount (USD)</th>
+                    <th>Amount (BTC)</th>
+                    <th>Method</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-table">
+                <!-- Transaction rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Firebase Configuration and Initialization -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBA_gGITL3vOX_wymV8m3c7h_2kYxUEL0A",
+            authDomain: "email-5e336.firebaseapp.com",
+            projectId: "email-5e336",
+            storageBucket: "email-5e336.appspot.com",
+            messagingSenderId: "561655323170",
+            appId: "1:561655323170:web:42fcf886c34f2d5a16487b",
+            measurementId: "G-J92WNBY5RL"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Load transaction history
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                const userId = user.uid;
+                const transactionRef = firebase.database().ref('transactions/' + userId);
+
+                transactionRef.on('value', (snapshot) => {
+                    const transactions = snapshot.val();
+                    const transactionTable = document.getElementById('transaction-table');
+                    transactionTable.innerHTML = ''; // Clear existing rows
+
+                    // Convert transactions object to array and sort by date descending
+                    const transactionArray = [];
+                    for (const id in transactions) {
+                        transactionArray.push(transactions[id]);
+                    }
+                    transactionArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    transactionArray.forEach(transaction => {
+                        const row = `<tr>
+                            <td>${new Date(transaction.date).toLocaleString()}</td>
+                            <td>${transaction.type}</td>
+                            <td>${transaction.amountUsd}</td>
+                            <td>${transaction.amountBtc}</td>
+                            <td>${transaction.method}</td>
+                        </tr>`;
+                        transactionTable.innerHTML += row;
+                    });
+                });
+            } else {
+                alert('Please log in to view your transaction history.');
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+        .header .nav-link {
+            color: #007bff;
+        }
+        .card img {
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Omega Bank</h1>
+                </div>
+                <div class="col">
+                    <nav class="nav">
+                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="login.html">Login</a>
+                        <a class="nav-link" href="#services">Products & Services</a>
+                        <a class="nav-link" href="#about">About Us</a>
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="register-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="ssn">SSN/EIN/TIN Number</label>
+                <input type="text" class="form-control" id="ssn" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select class="form-control" id="country" required>
+                    <option>USA</option>
+                    <!-- Add more countries as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select class="form-control" id="state" required>
+                    <option>California</option>
+                    <!-- Add more states as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">Contact Address</label>
+                <input type="text" class="form-control" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" class="form-control" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" required>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="privacy" required>
+                <label for="privacy">I agree to the privacy policy and terms of service</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h3 class="section-title" id="services">Product & Services</h3>
+        <div class="row">
+            <!-- Service 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://thumbs.dreamstime.com/b/hand-giving-money-bag-to-another-hand-payment-credit-loan-banking-poster-vector-illustration-blue-background-cartoon-flat-71582676.jpg" alt="Loans">
+                    <div class="card-body">
+                        <h5 class="card-title">Loans</h5>
+                        <p class="card-text">Offering various types of personal loans including home improvement, debt consolidation, and medical expenses.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Service 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://www.visa.co.in/dam/VCOM/regional/ap/india/global-elements/images/in-visa-gold-card-498x280.png" alt="Credit Cards">
+                    <div class="card-body">
+                        <h5 class="card-title">Credit Cards</h5>
+                        <p class="card-text">A variety of credit card options with different rewards and benefits tailored to various spending habits.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Service 3 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://media.istockphoto.com/id/1409106095/vector/long-term-investment-investors-keep-their-savings-on-time-vector-illustration.jpg?s=612x612&w=0&k=20&c=Z3Y3Pr-XJQwJXfEy7aD12CJiQ4siPa-xRyX_DtDOb4I=" alt="Investment Services">
+                    <div class="card-body">
+                        <h5 class="card-title">Investment Services</h5>
+                        <p class="card-text">Helping customers grow their wealth through investment opportunities such as stocks, bonds, and mutual funds.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more services as needed -->
+        </div>
+    </div>
+    <!-- Firebase Configuration and Initialization -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script>
+       const firebaseConfig = {
+          apiKey: "AIzaSyBA_gGITL3vOX_wymV8m3c7h_2kYxUEL0A",
+          authDomain: "email-5e336.firebaseapp.com",
+          projectId: "email-5e336",
+          storageBucket: "email-5e336.appspot.com",
+          messagingSenderId: "561655323170",
+          appId: "1:561655323170:web:42fcf886c34f2d5a16487b",
+          measurementId: "G-J92WNBY5RL"
+       };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const ssn = document.getElementById('ssn').value;
+            const country = document.getElementById('country').value;
+            const state = document.getElementById('state').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const dob = document.getElementById('dob').value;
+
+            console.log("Registering user:", email);
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("User created:", user.uid);
+                    return db.ref('users/' + user.uid).set({
+                        name,
+                        username,
+                        email,
+                        ssn,
+                        country,
+                        state,
+                        address,
+                        phone,
+                        dob,
+                        accountNumber: generateAccountNumber(),
+                        balance: 0,
+                        transactions: []
+                    });
+                })
+                .then(() => {
+                    alert('Registration successful!');
+                    window.location.href = 'login.html';
+                })
+                .catch((error) => {
+                    console.error('Error during registration:', error);
+                    alert('Registration failed: ' + error.message);
+                });
+        });
+
+        function generateAccountNumber() {
+            return '**** **** **** ' + Math.floor(Math.random() * 9000 + 1000);
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Opportunities - Omega Bank</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header .nav-link {
+            color: #007bff;
+        }
+        .form-section {
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .chat-box {
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            z-index: 1000;
+            display: none;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            cursor: pointer;
+        }
+        .chat-body {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .chat-footer input {
+            width: calc(100% - 60px);
+            padding: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Omega Bank</h1>
+                </div>
+                <div class="col">
+                    <nav class="nav">
+                        <a class="nav-link" href="login.html">Login</a>
+                        <a class="nav-link" href="register.html">Register</a>
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                        <a class="nav-link" href="credit-card.html">Credit Cards</a>
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Investment Opportunities</h2>
+        <p>Explore our investment options designed to help you grow your wealth:</p>
+
+        <div class="row">
+            <!-- Investment Option 1 -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://example.com/investment1.jpg" alt="Stocks">
+                    <div class="card-body">
+                        <h5 class="card-title">Stocks</h5>
+                        <p class="card-text">Invest in a variety of stocks to diversify your portfolio and achieve long-term growth.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Investment Option 2 -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://example.com/investment2.jpg" alt="Bonds">
+                    <div class="card-body">
+                        <h5 class="card-title">Bonds</h5>
+                        <p class="card-text">Secure your future with bonds that offer stable returns and lower risk.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Investment Option 3 -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://example.com/investment3.jpg" alt="Mutual Funds">
+                    <div class="card-body">
+                        <h5 class="card-title">Mutual Funds</h5>
+                        <p class="card-text">Choose from a range of mutual funds to match your investment goals and risk tolerance.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chat-box">
+        <div class="chat-header">
+            Chat with Us
+        </div>
+        <div class="chat-body" id="chat-messages"></div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" class="form-control" placeholder="Type a message...">
+            <button id="send-chat" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Show/Hide Chat Box
+        document.querySelector('.chat-header').addEventListener('click', function() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+        });
+
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        // Load chat messages from local storage
+        function loadMessages() {
+            const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            chatMessages.innerHTML = '';
+            storedMessages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                chatMessages.appendChild(messageElement);
+            });
+        }
+        loadMessages();
+
+        // Send message
+        document.getElementById('send-chat').addEventListener('click', function() {
+            const message = chatInput.value;
+            if (message.trim() !== '') {
+                const userMessage = `User: ${message}`;
+                const messageElement = document.createElement('div');
+                messageElement.textContent = userMessage;
+                chatMessages.appendChild(messageElement);
+
+                // Save message to local storage
+                const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+                storedMessages.push(userMessage);
+                localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+
+                // Clear input
+                chatInput.value = '';
+
+                // Forward message to chat.html
+                localStorage.setItem('currentMessage', message);
+                window.location.href = 'chat.html';
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
