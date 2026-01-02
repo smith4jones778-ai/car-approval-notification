@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Credit Karma</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #00aaff;
+    }
+    table, td, th {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+    input, button, select, textarea {
+      padding: 5px;
+      margin: 5px 0;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      background: white;
+    }
+    .form-section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    textarea {
+      width: 100%;
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Admin Panel - Credit Karma</h1>
+
+<div class="form-section">
+  <h3>Create New User</h3>
+  <input type="text" id="name" placeholder="Name" />
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <input type="date" id="dob" placeholder="Date of Birth" />
+  <input type="text" id="address" placeholder="Address" />
+  <input type="text" id="phone" placeholder="Phone Number" />
+  <input type="number" id="score" placeholder="Credit Score" />
+  <input type="number" id="infoScore" placeholder="Credit Info Quality Score" />
+
+  <select id="presetInfo" onchange="applyPresetInfo()">
+    <option value="">-- Select Credit Info --</option>
+    <option>Excellent: Pays bills on time, low credit usage.</option>
+    <option>Good: Minor delays, healthy credit habits.</option>
+    <option>Fair: Occasional missed payments, moderate debt.</option>
+    <option>Poor: Frequent late payments, high credit utilization.</option>
+    <option>New User: No credit history yet.</option>
+    <option>Recovering: Rebuilding after default.</option>
+    <option>High Risk: Multiple delinquencies reported.</option>
+    <option>Trusted: Long-term borrower with strong record.</option>
+    <option>Monitoring: Under review due to inconsistencies.</option>
+    <option>Manual Review: Needs manual assessment for approval.</option>
+  </select><br>
+
+  <textarea id="scoreInfo" placeholder="Credit Info Description"></textarea><br>
+  <button onclick="createUser()">Create User</button>
+</div>
+
+<h3>All Users</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Email</th><th>DOB</th><th>Address</th><th>Phone</th><th>Score</th><th>Info Score</th><th>Info</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="userList"></tbody>
+</table>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBT1_8dM11M94hdZzIrXePmWxvC30BJax8",
+    authDomain: "register-30bec.firebaseapp.com",
+    projectId: "register-30bec",
+    storageBucket: "register-30bec.appspot.com",
+    messagingSenderId: "453453777157",
+    appId: "1:453453777157:web:2d7319161f370e10010f6c"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  function applyPresetInfo() {
+    const preset = document.getElementById("presetInfo").value;
+    if (preset) {
+      document.getElementById("scoreInfo").value = preset;
+    }
+  }
+
+  function createUser() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const dob = document.getElementById("dob").value;
+    const address = document.getElementById("address").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const creditScore = parseInt(document.getElementById("score").value);
+    const creditInfoScore = parseInt(document.getElementById("infoScore").value);
+    const scoreInfo = document.getElementById("scoreInfo").value.trim();
+
+    if (!name || !email || !password || !dob || !address || !phone || isNaN(creditScore) || isNaN(creditInfoScore) || !scoreInfo) {
+      alert("Please fill ALL fields correctly.");
+      return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(cred => {
+        return db.collection("users").doc(cred.user.uid).set({
+          name, email, dob, address, phone,
+          creditScore, creditInfoScore, scoreInfo,
+          uid: cred.user.uid,
+          createdAt: new Date().toISOString()
+        });
+      })
+      .then(() => {
+        alert("User created and saved successfully!");
+        location.reload();
+      })
+      .catch(error => alert("Error: " + error.message));
+  }
+
+  function updateUser(uid) {
+    const row = document.getElementById("row-" + uid);
+    const name = row.querySelector(".name").value;
+    const dob = row.querySelector(".dob").value;
+    const address = row.querySelector(".address").value;
+    const phone = row.querySelector(".phone").value;
+    const creditScore = parseInt(row.querySelector(".creditScore").value);
+    const creditInfoScore = parseInt(row.querySelector(".creditInfoScore").value);
+    const scoreInfo = row.querySelector(".scoreInfo").value;
+
+    db.collection("users").doc(uid).update({
+      name, dob, address, phone,
+      creditScore, creditInfoScore, scoreInfo
+    })
+    .then(() => alert("User updated successfully."))
+    .catch(err => alert("Update failed: " + err.message));
+  }
+
+  function deleteUser(uid) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      db.collection("users").doc(uid).delete()
+        .then(() => alert("User deleted."))
+        .catch(err => alert("Delete failed: " + err.message));
+    }
+  }
+
+  function loadUsers() {
+    db.collection("users").onSnapshot(snapshot => {
+      let html = "";
+      snapshot.forEach(doc => {
+        const user = doc.data();
+        html += `<tr id="row-${doc.id}">
+          <td><input class="name" value="${user.name || ''}" /></td>
+          <td>${user.email || ''}</td>
+          <td><input class="dob" type="date" value="${user.dob || ''}" /></td>
+          <td><input class="address" value="${user.address || ''}" /></td>
+          <td><input class="phone" value="${user.phone || ''}" /></td>
+          <td><input class="creditScore" type="number" value="${user.creditScore || 0}" /></td>
+          <td><input class="creditInfoScore" type="number" value="${user.creditInfoScore || 0}" /></td>
+          <td><input class="scoreInfo" value="${user.scoreInfo || ''}" /></td>
+          <td>
+            <button onclick="updateUser('${doc.id}')">Update</button>
+            <button onclick="deleteUser('${doc.id}')">Delete</button>
+          </td>
+        </tr>`;
+      });
+      document.getElementById("userList").innerHTML = html;
+    }, err => alert("Load error: " + err.message));
+  }
+
+  loadUsers();
+</script>
+</body>
+</html>
+
